@@ -98,7 +98,7 @@ Raw Data: Ingested from source systems (simulated CSV files)
 
 ## Data Lineage
 
-![Data Lineage](docs/images/data_lineage.png)
+![Data Lineage](docs/images/data_lineage.webp)
 Data lineage showing the flow from raw data in the bronze layer through dimensional models in the silver layer to business analytics in the gold layer.
 
 ## Dashboard
