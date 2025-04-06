@@ -21,7 +21,7 @@ logging.basicConfig(
 logger = logging.getLogger('bronze-etl')
 
 
-PG_URI = "postgresql://postgres:taiwo@localhost:5432/tabby_source"
+PG_URI = "postgresql://postgres:password@localhost:5432/tabby_source"
 
 DUCKDB_PATH = os.path.expanduser("~/tabby-dwh/data/tabby_dwh.duckdb")
 
