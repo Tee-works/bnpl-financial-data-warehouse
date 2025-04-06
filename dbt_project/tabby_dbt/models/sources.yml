@@ -1,0 +1,131 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Bronze layer raw data from source systems"
+    # database: bronze  # DuckDB main database
+    schema: bronze
+    tables:
+      - name: customers
+        description: "Customer information from operational database"
+        columns:
+          - name: customer_id
+            description: "Unique identifier for a customer"
+          - name: email
+            description: "Customer email address"
+          - name: first_name
+            description: "Customer first name"
+          - name: last_name
+            description: "Customer last name"
+          - name: phone_number
+            description: "Customer phone number"
+          - name: country
+            description: "Customer country"
+          - name: city
+            description: "Customer city"
+          - name: registration_date
+            description: "Date when customer registered"
+          - name: last_login_date
+            description: "Date of customer's last login"
+          - name: status
+            description: "Customer status (active, inactive, suspended)"
+      
+      - name: merchants
+        description: "Merchant information from operational database"
+        columns:
+          - name: merchant_id
+            description: "Unique identifier for a merchant"
+          - name: merchant_name
+            description: "Merchant business name"
+          - name: category
+            description: "Merchant business category"
+          - name: country
+            description: "Merchant country"
+          - name: integration_type
+            description: "Type of integration with Tabby"
+          - name: onboarding_date
+            description: "Date when merchant was onboarded"
+          - name: status
+            description: "Merchant status (active, inactive, pending)"
+      
+      - name: transactions
+        description: "Transaction data from operational database"
+        columns:
+          - name: transaction_id
+            description: "Unique identifier for a transaction"
+          - name: customer_id
+            description: "Foreign key to customers table"
+          - name: merchant_id
+            description: "Foreign key to merchants table"
+          - name: transaction_date
+            description: "Date and time of the transaction"
+          - name: amount
+            description: "Transaction amount"
+          - name: currency
+            description: "Transaction currency"
+          - name: payment_method
+            description: "Method of payment"
+          - name: status
+            description: "Transaction status (completed, pending, failed, cancelled, refunded)"
+      
+      - name: payment_plans
+        description: "Payment plan data from operational database"
+        columns:
+          - name: plan_id
+            description: "Unique identifier for a payment plan"
+          - name: transaction_id
+            description: "Foreign key to transactions table"
+          - name: customer_id
+            description: "Foreign key to customers table"
+          - name: merchant_id
+            description: "Foreign key to merchants table"
+          - name: plan_date
+            description: "Date when the plan was created"
+          - name: total_amount
+            description: "Total amount of the payment plan"
+          - name: installment_count
+            description: "Number of installments"
+          - name: first_installment_amount
+            description: "Amount of the first installment"
+          - name: status
+            description: "Payment plan status (active, completed, defaulted)"
+      
+      - name: installments
+        description: "Installment data from operational database"
+        columns:
+          - name: installment_id
+            description: "Unique identifier for an installment"
+          - name: plan_id
+            description: "Foreign key to payment_plans table"
+          - name: installment_number
+            description: "Order number of the installment"
+          - name: amount
+            description: "Installment amount"
+          - name: due_date
+            description: "Date when the installment is due"
+          - name: paid_date
+            description: "Date when the installment was paid"
+          - name: status
+            description: "Installment status (scheduled, paid, paid_late, defaulted)"
+      
+      - name: user_events
+        description: "User events from mobile and web applications"
+        columns:
+          - name: event_id
+            description: "Unique identifier for an event"
+          - name: event_timestamp
+            description: "Date and time of the event"
+          - name: customer_id
+            description: "Foreign key to customers table (can be null for anonymous users)"
+          - name: event_type
+            description: "Type of event (app_open, product_view, search, etc.)"
+          - name: platform
+            description: "Platform where the event occurred (android, ios, web)"
+          - name: merchant_id
+            description: "Foreign key to merchants table (if applicable)"
+          - name: session_id
+            description: "Identifier for the user session"
+          - name: device_type
+            description: "Type of device (mobile, tablet, desktop)"
+          - name: country
+            description: "Country where the event occurred"

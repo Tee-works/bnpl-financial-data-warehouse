@@ -1,0 +1,194 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staging layer for customer data, containing basic information about customers"
+    columns:
+      - name: customer_id
+        description: "The unique identifier for a customer"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "Customer's email address used for account verification and communication"
+      - name: first_name
+        description: "Customer's first name"
+      - name: last_name
+        description: "Customer's last name"
+      - name: phone_number
+        description: "Customer's contact phone number"
+      - name: country
+        description: "Country where the customer is located"
+      - name: city
+        description: "City where the customer is located"
+      - name: registration_date
+        description: "Date when the customer created their account"
+      - name: last_login_date
+        description: "Date of the customer's most recent login to the platform"
+      - name: status
+        description: "Current status of the customer account (e.g., active, inactive, suspended)"
+      - name: _etl_extracted_at
+        description: "Timestamp indicating when this record was extracted from the source system"
+
+  - name: stg_user_events
+    description: "Staging layer for event data, containing information about user interactions"
+    columns:
+      - name: stg_user_events
+        description: "Type of event (app_open, product_view, search, etc.)"
+        tests:
+          - not_null
+      - name: event_id
+        description: "The unique identifier for an event"
+        tests:
+          - unique
+          - not_null
+      - name: event_timestamp
+        description: "Timestamp when the event occurred"
+        tests:
+          - not_null
+      - name: platform
+        description: "Platform where the event occurred (android, ios, web)"
+      - name: session_id
+        description: "Identifier for the user session"
+      - name: customer_id
+        description: "Foreign key to customers table (can be null for anonymous users)"
+      - name: merchant_id
+        description: "Foreign key to merchants table (if applicable)"
+      - name: _etl_extracted_at
+        description: "Timestamp indicating when this record was extracted from the source system"
+
+  - name: stg_merchants
+    description: "Staging layer for merchant data, containing basic information about merchants integrated with Tabby"
+    columns:
+      - name: merchant_id
+        description: "The unique identifier for a merchant"
+        tests:
+          - unique
+          - not_null
+      - name: merchant_name
+        description: "Name of the merchant"
+      - name: category
+        description: "Business category of the merchant"
+      - name: country
+        description: "Country where the merchant operates"
+      - name: integration_type
+        description: "Type of integration the merchant has with Tabby (API, plugin, etc.)"
+      - name: onboarding_date
+        description: "Date when the merchant was onboarded to Tabby"
+      - name: status
+        description: "Current status of the merchant (active, inactive)"
+      - name: _etl_extracted_at
+        description: "Timestamp indicating when this record was extracted from the source system"
+
+  - name: stg_transactions
+    description: "Staging layer for transaction data, containing information about customer purchases"
+    columns:
+      - name: transaction_id
+        description: "The unique identifier for a transaction"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to customers table"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: merchant_id
+        description: "Foreign key to merchants table"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_merchants')
+              field: merchant_id
+      - name: transaction_date
+        description: "Date when the transaction occurred"
+        tests:
+          - not_null
+      - name: amount
+        description: "Total amount of the transaction"
+        tests:
+          - not_null
+      - name: currency
+        description: "Currency of the transaction"
+      - name: payment_method
+        description: "Method used for payment (credit card, debit card, etc.)"
+      - name: _etl_extracted_at
+        description: "Timestamp indicating when this record was extracted from the source system"
+
+  - name: stg_payment_plans
+    description: "Staging layer for payment plans data, containing information about installment plans"
+    columns:
+      - name: plan_id
+        description: "The unique identifier for a payment plan"
+        tests:
+          - unique
+          - not_null
+      - name: transaction_id
+        description: "Foreign key to transactions table"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_transactions')
+              field: transaction_id
+      - name: customer_id
+        description: "Foreign key to customers table"
+        tests:
+          - not_null
+      - name: merchant_id
+        description: "Foreign key to merchants table"
+        tests:
+          - not_null
+      - name: plan_date
+        description: "Date when the payment plan was created"
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Total amount to be paid in the plan"
+        tests:
+          - not_null
+      - name: installment_count
+        description: "Number of installments in the plan"
+        tests:
+          - not_null
+      - name: status
+        description: "Current status of the payment plan (active, completed, defaulted)"
+      - name: _etl_extracted_at
+        description: "Timestamp indicating when this record was extracted from the source system"
+
+  - name: stg_installments
+    description: "Staging layer for installments data, containing information about individual payments within a plan"
+    columns:
+      - name: installment_id
+        description: "The unique identifier for an installment"
+        tests:
+          - unique
+          - not_null
+      - name: plan_id
+        description: "Foreign key to payment_plans table"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_payment_plans')
+              field: plan_id
+      - name: installment_number
+        description: "Sequence number of the installment within the plan"
+        tests:
+          - not_null
+      - name: amount
+        description: "Amount for this specific installment"
+        tests:
+          - not_null
+      - name: due_date
+        description: "Date when the installment payment is due"
+        tests:
+          - not_null
+      - name: paid_date
+        description: "Date when the installment was paid (null if not paid)"
+      - name: status
+        description: "Status of the installment (pending, paid, overdue, defaulted)"
+        tests:
+          - not_null
+      - name: _etl_extracted_at
+        description: "Timestamp indicating when this record was extracted from the source system"
