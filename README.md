@@ -8,7 +8,7 @@ This project is a scaled-down version of an enterprise data warehouse, implement
 
 The goal of this project is to build an analytical solution for a BNPL company, enabling the business to better understand and analyse customer transactions, payment plans, and merchant activities.
 
-![Data Architecture](docs/images/architecture.png)
+![Data Architecture](docs/images/updated_architecture.png)
 
 ## Features
 
