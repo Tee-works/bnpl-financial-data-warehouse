@@ -8,11 +8,11 @@ from sqlalchemy import create_engine, text
 
 
 # create postgres connection string
-DB_URI = "postgresql://postgres:taiwo@localhost:5432/tabby_source"
+DB_URI = "postgresql://postgres:password@localhost:5432/tabby_source"
 
 def create_database():
     # Connect to the postgres database first
-    engine = create_engine("postgresql://postgres:taiwo@localhost:5432/postgres")
+    engine = create_engine("postgresql://postgres:password@localhost:5432/postgres")
     conn = engine.connect()
 
     # commit is required
