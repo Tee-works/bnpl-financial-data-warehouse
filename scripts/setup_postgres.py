@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """ 
 Set up Postgres database with sample data for Tabby DWH project
 """
