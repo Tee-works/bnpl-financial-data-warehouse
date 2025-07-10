@@ -1,6 +1,6 @@
 
 # Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
+# and underscores. 
 # name or the intended use of these models
 name: 'tabby_dbt'
 version: '1.0.0'
@@ -10,7 +10,7 @@ profile: 'tabby_dbt'
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
+# found in the "models/" directory.
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -45,7 +45,6 @@ models:
       +materialized: table
       +schema: gold
       
-      If you have subdirectories in your gold folder, uncomment these:
       customers:
         +tags: ["customers"]
       merchants:
