@@ -8,7 +8,8 @@ This project is a scaled-down version of an enterprise data warehouse, implement
 
 The goal of this project is to build an analytical solution for a BNPL company, enabling the business to better understand and analyse customer transactions, payment plans, and merchant activities.
 
-![Data Architecture](docs/images/updated_architecture.png)
+![image](https://github.com/user-attachments/assets/1fbf8332-3ae0-4a53-8e19-bb003c2e2796)
+
 
 ## Features
 
@@ -152,19 +153,6 @@ The interactive dashboard provides insights into key business domains:
 - dbt 1.0+
 - DuckDB
 
-
-## Future Enhancements for a Real Implementation
-
-In a production environment, I would expand the solution with the following enhancements:
-
-1. **CI/CD Pipeline**: Implement automated testing and deployment pipelines for continuous integration and delivery.
-2. **Data Quality Automation**: Set up automated validation processes to ensure data quality and consistency.
-3. **Pipeline Monitoring**: Implement monitoring to track the health and performance of the data pipelines.
-4. **Incremental Processing**: Optimize the system to process only new or changed data, improving efficiency.
-5. **Security**: Ensure proper authentication, authorization, and data encryption for sensitive data.
-6. **Backup & Recovery**: Implement a disaster recovery strategy to protect data integrity.
-7. **Performance Optimization**: Improve query performance with techniques like partitioning, clustering, and indexing.
-8. **Machine Learning Models**: Integrate predictive analytics to assess customer churn and default risk.
 
 ## License
 
