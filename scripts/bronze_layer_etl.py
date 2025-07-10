@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 Bronze Layer ETL for Tabby DWH project
 Extracts Data from postgreSQL and loads it into the Bronze layer
