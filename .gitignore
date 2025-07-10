@@ -3,38 +3,14 @@
 *.db
 *.sqlite
 
-# Environment and credentials
-.env
-credentials.json
-config.json
-*.pem
-*.key
-
 # Python files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-env/
-venv/
-ENV/
 fresh-env/
 dwh-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
 
 # Large data files
 *.csv
